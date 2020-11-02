@@ -15,13 +15,7 @@ const refs = {
   button: document.querySelector('.cross'),
 };
 
-refs.searchInput.addEventListener(
-  'input',
-  _.debounce(searchformSubmitHandler, 500),
-);
-refs.button.addEventListener('click', clear);
-
-function searchformSubmitHandler(e) {
+const searchformSubmitHandler = e => {
   e.preventDefault();
   clearCountriesContainer();
   const query = e.target.value;
@@ -41,42 +35,29 @@ function searchformSubmitHandler(e) {
     if (data.length > 1 && data.length <= 10) {
       insertCard(data, countryList);
     } else if (data.length === 1) {
-      // const markup = buildInfoOneCard(data[0]);
       insertCard(data, countryInfoCard);
     }
   });
-}
-function insertCard(countries, template) {
+};
+
+const insertCard = (countries, template) => {
   const markup = countries.map(country => template(country)).join('');
   refs.content.insertAdjacentHTML('afterbegin', markup);
-}
+};
 
-// function insertCard(countries, template) {
-//   const markup = countries
-//     .map(country => console.log(template(country)))
-//     .join('');
-//   refs.content.insertAdjacentHTML('afterbegin', markup);
-// }
-
-// function buildInfoOneCard(card) {
-//   return countryInfoCard(card);
-// }
-
-// function buildInfoEachCard(card) {
-//   return countryList(card);
-// }
-
-// function buildListMarkup(countries, template) {
-//   const markup = countries.map(country => template(country)).join();
-//   refs.content.insertAdjacentHTML('afterbegin', markup);
-// }
-
-function clearCountriesContainer() {
+const clearCountriesContainer = () => {
   refs.content.innerHTML = '';
-}
+};
 
-function clear(e) {
+const clear = e => {
   if (e.target.classList.contains('cross')) {
     refs.searchInput.value = '';
+    refs.content.innerHTML = '';
   }
-}
+};
+
+refs.searchInput.addEventListener(
+  'input',
+  _.debounce(searchformSubmitHandler, 500),
+);
+refs.button.addEventListener('click', clear);
