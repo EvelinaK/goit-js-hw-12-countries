@@ -1,0 +1,111 @@
+$black: #191414;
+$ellow: #fcf69d;
+$white: white;
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  background-color: #85ffbd;
+  background-image: linear-gradient(80deg, #85ffbd 0%, #fffb7d 100%);
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: $white;
+  height: 10vh;
+}
+h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: $ellow;
+  height: 7vh;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+}
+
+img {
+  width: 300px;
+  height: 100%;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 600px;
+  text-align: center;
+}
+.search {
+  position: relative;
+}
+.search_input {
+  width: 600px;
+  height: 50px;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.span {
+  font-weight: bold;
+}
+.cross {
+  height: 45px;
+  width: 5%;
+  position: absolute;
+  right: 1%;
+  top: 3px;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #85ffbd;
+  border-radius: 20%;
+}
+
+.cross:hover {
+  background-color: #fcf69d;
+}
+.info {
+  text-align: left;
+}
+label {
+  position: absolute;
+  top: 0;
+  font-size: var(--font-size-small);
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.2s ease-out;
+}
+
+input:placeholder-shown + label {
+  opacity: 0;
+  transform: translateY(1rem);
+}
