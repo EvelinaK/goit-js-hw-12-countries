@@ -10,15 +10,22 @@ defaults.styling = 'material';
 defaults.icons = 'material';
 
 const refs = {
-  searchInput: document.querySelector('#search-country'),
-  content: document.querySelector('#countries-cont'),
-  button: document.querySelector('.cross'),
+  $searchInput: document.querySelector('#search-country'),
+  $content: document.querySelector('#countries-cont'),
+  $button: document.querySelector('.cross'),
 };
 
-const searchformSubmitHandler = e => {
+refs.$searchInput.addEventListener(
+  'input',
+  _.debounce(searchformSubmitHandler, 500),
+);
+refs.$button.addEventListener('click', clear);
+
+function searchformSubmitHandler(e) {
+  const { target } = e;
   e.preventDefault();
   clearCountriesContainer();
-  const query = e.target.value;
+  const query = target.value;
 
   service.fetchCountries(query).then(data => {
     if (data.length > 10) {
@@ -38,26 +45,20 @@ const searchformSubmitHandler = e => {
       insertCard(data, countryInfoCard);
     }
   });
-};
+}
 
 const insertCard = (countries, template) => {
-  const markup = countries.map(country => template(country)).join('');
-  refs.content.insertAdjacentHTML('afterbegin', markup);
+  const markup = countries.map(template).join('');
+  refs.$content.insertAdjacentHTML('afterbegin', markup);
 };
 
 const clearCountriesContainer = () => {
-  refs.content.innerHTML = '';
+  refs.$content.innerHTML = '';
 };
 
-const clear = e => {
-  if (e.target.classList.contains('cross')) {
-    refs.searchInput.value = '';
-    refs.content.innerHTML = '';
+function clear({ target }) {
+  if (target.classList.contains('cross')) {
+    refs.$searchInput.value = '';
+    refs.$content.innerHTML = '';
   }
-};
-
-refs.searchInput.addEventListener(
-  'input',
-  _.debounce(searchformSubmitHandler, 500),
-);
-refs.button.addEventListener('click', clear);
+}
